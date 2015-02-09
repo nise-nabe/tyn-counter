@@ -1,0 +1,9 @@
+{
+  "name": "tyn-counter",
+  "version": "0.0.0",
+  "license": "MIT",
+  "private": true,
+  "dependencies": {
+    "html5-boilerplate": "~4.3.0"
+  }
+}
