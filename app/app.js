@@ -47,8 +47,8 @@ angular.module('myApp', [
                 function(memo, h) { return memo + h.point; }, 0);
             return item;
         });
-        this.counts = _.reduce(this.items, function(memo, item) {return memo + item.counts});
-        this.points = _.reduce(this.items, function(memo, item) {return memo + item.points});
+        this.counts = _.reduce(this.items, function(memo, item) {return memo + item.counts}, 0);
+        this.points = _.reduce(this.items, function(memo, item) {return memo + item.points}, 0);
     }, this), function(error) {
         console.log(error);
     });
