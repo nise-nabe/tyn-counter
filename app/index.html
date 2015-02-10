@@ -51,12 +51,12 @@
           </tr>
           <tr data-ng-repeat="item in c.items">
             <th>{{item.name}}</th>
-            <td>{{item.type}}</td>
+            <td>{{c.type[item.type].name}}</td>
             <td><form ng-submit="c.doRecord(item.name, item.point)">
               <button class="btn btn-default" type="submit">{{item.point}}</button>
             </form></td>
-            <td><form ng-submit="c.doRecord(item.name, item.point * 2)">
-              <button class="btn btn-default" type="submit">{{item.point * 2}}</button>
+            <td><form ng-submit="c.doRecord(item.name, item.bonus)">
+              <button class="btn btn-default" type="submit">{{item.bonus}}</button>
             </form></td>
             <td></td>
             <td>{{item.counts}}</td>
