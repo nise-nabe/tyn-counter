@@ -6,6 +6,7 @@
   "dependencies": {
     "html5-boilerplate": "~4.3.0",
     "underscore": "~1.7.0",
-    "ng-moment": "*"
+    "ng-moment": "*",
+    "moment": "~2.9.0"
   }
 }
