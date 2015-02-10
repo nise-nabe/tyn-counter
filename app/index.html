@@ -11,31 +11,90 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="bower_components/html5-boilerplate/css/normalize.css">
   <link rel="stylesheet" href="bower_components/html5-boilerplate/css/main.css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
   <link rel="stylesheet" href="app.css">
   <script src="bower_components/html5-boilerplate/js/vendor/modernizr-2.6.2.min.js"></script>
+  <script src="bower_components/underscore/underscore-min.js"></script>
 </head>
-<body>
+<body ng-app="MyApp">
 
   <!--[if lt IE 7]>
       <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
   <![endif]-->
 
-  <div ng-controller="">
-    <div>
-      ティン獲得対象コンテンツのリストとボタンを出す（ボーナス、通常）
+  <div class="container" ng-controller="Controller as c" style="margin-top: 50px;">
+    <div class="col-md-7 col-md-offset-1">
+      <div class="jumbotron">
+        <h2>ティンカウンター</h2>
+      </div>
+      <table class="table table-condensed">
+        <thead>
+          <tr>
+            <th>コンテンツ名</th>
+            <th class="col-md-2">通常輝き</th>
+            <th class="col-md-1">通常</th>
+            <th class="col-md-1">ボーナス</th>
+            <th></th>
+            <th class="col-md-1">回数</th>
+            <th class="col-md-1">合計</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>合計</td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td>1</td>
+            <td>1</td>
+          </tr>
+          <tr data-ng-repeat="item in c.items">
+            <th>{{item.name}}</th>
+            <td>{{item.type}}</td>
+            <td><form ng-submit="c.doRecord(item.name, item.point)">
+              <button class="btn btn-default" type="submit">{{item.point}}</button>
+            </form></td>
+            <td><form ng-submit="c.doRecord(item.name, item.point * 2)">
+              <button class="btn btn-default" type="submit">{{item.point * 2}}</button>
+            </form></td>
+            <td></td>
+            <td>{{item.counts}}</td>
+            <td>{{item.points}}</td>
+          </tr>
+          <tr>
+            <td>合計</td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td>1</td>
+            <td>1</td>
+          </tr>
+        </tbody>
+      </table>
+      <div>
+      </div>
     </div>
-    <div>
-      各コンテンツの回数と合計ティンを出す
-    </div>
-    <div>
-      全コンテンツの合計ティンを出す
-    </div>
-    <div>
-      ティン履歴
+    <div class="col-md-3">
+      <div style="position: fixed;">
+        <h1>ティン履歴</h1>
+        <div class="list-group slide">
+          <a href="#" class="list-group-item"  ng-repeat="history in c.histories">
+            <div>{{history.name}} <span class="badge pull-right">{{history.point}} ティン</span></div>
+            <div>{{history.createdAt}}</div>
+          </a>
+        </div>
+
+      </div>
     </div>
   </div>
 
   <script src="https://code.angularjs.org/1.3.13/angular.min.js"></script>
+  <script src="https://code.angularjs.org/1.3.13/angular-resource.min.js"></script>
+  <script src="https://code.angularjs.org/1.3.13/angular-animate.min.js"></script>
+  <script src="http://momentjs.com/downloads/moment-with-locales.min.js"></script>
+  <script src="bower_components/ng-moment/dist/ng-moment.min.js"></script>
   <script src="app.js"></script>
 </body>
 </html>

@@ -4,6 +4,8 @@
   "license": "MIT",
   "private": true,
   "dependencies": {
-    "html5-boilerplate": "~4.3.0"
+    "html5-boilerplate": "~4.3.0",
+    "underscore": "~1.7.0",
+    "ng-moment": "*"
   }
 }
