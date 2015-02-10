@@ -23,7 +23,6 @@ angular.module('myApp', [
     $moment.locale(["ja"]);
     function getHistories() {
         var histories = localStorage.getItem("histories");
-        console.log(histories);
         if (histories === null) {
             histories = [];
         } else {
