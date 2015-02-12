@@ -69,5 +69,12 @@ angular.module('myApp', [
             History.setList(histories);
             history.createdAt = $moment(history.created_at).format('LLL');
             this.histories.unshift(history);
-        }
+        };
+        this.doUpdate = _.bind(function(item, point) {
+            item.counts += 1;
+            this.counts += 1;
+            item.points += point;
+            this.points += point;
+        }, this);
+
 }]);

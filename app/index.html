@@ -52,10 +52,10 @@
           <tr data-ng-repeat="item in c.items">
             <th>{{item.name}}</th>
             <td>{{c.type[item.type].name}}</td>
-            <td><form ng-submit="c.doRecord(item.name, item.point); item.counts = item.counts + 1; item.points = item.points + item.point;">
+            <td><form ng-submit="c.doRecord(item.name, item.point); c.doUpdate(item, item.point);">
               <button class="btn btn-default" type="submit">{{item.point}}</button>
             </form></td>
-            <td><form ng-submit="c.doRecord(item.name, item.bonus); item.counts = item.counts + 1; item.points = item.points + item.bonus;">
+            <td><form ng-submit="c.doRecord(item.name, item.bonus); c.doUpdate(item, item.bonus);">
               <button class="btn btn-default" type="submit">{{item.bonus}}</button>
             </form></td>
             <td></td>
