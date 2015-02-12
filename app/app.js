@@ -71,6 +71,22 @@ angular.module('myApp', [
         this.histories.unshift(history);
     };
 
+    this.deleteRecord = _.bind(function(history) {
+        var histories = History.getList();
+        for(var i = 0; i < histories.length; ++i) {
+            var h = histories[i];
+            if (h.name === history.name && h.point == history.point && h.created_at == history.created_at) {
+                histories.splice(i, 1);
+                this.histories.splice(i, 1);
+                History.setList(histories);
+
+                this.counts -= 1;
+                this.points -= h.point;
+                break;
+            }
+        }
+    }, this);
+
     this.doUpdate = _.bind(function(item, point) {
         item.counts += 1;
         this.counts += 1;
