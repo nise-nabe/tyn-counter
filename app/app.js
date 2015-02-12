@@ -82,6 +82,9 @@ angular.module('myApp', [
 
                 this.counts -= 1;
                 this.points -= h.point;
+                var item = _.find(this.items, function(item){ return item.name === h.name; });
+                item.counts -= 1;
+                item.points -= h.point;
                 break;
             }
         }
