@@ -3,7 +3,8 @@
 angular.module('myApp', [
     'ngResource',
     'ngMoment',
-    'ngAnimate'
+    'ngAnimate',
+    'ngMaterial'
 ]).factory('Resource', ['$resource', function($resource) {
     function resource() {
         return $resource('', null, {
