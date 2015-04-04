@@ -56,49 +56,55 @@ angular.module('myApp', [
 }]).controller("Controller", ['Resource', 'History', '$moment', function(Resource, History, $moment) {
     $moment.locale(["ja"]);
 
-    Resource.list().then(_.bind(function(json) {
-        History.initList('histories', json, _.bind(function(items, type, counts, points) {
+    var init = _.bind(function(target, json) {
+        History.initList(target, json, _.bind(function(items, type, counts, points) {
             this.items = items;
             this.type = type;
             this.counts = counts;
             this.points = points;
         }, this));
+
+        this.histories = _.map(_.first(History.getList(target), 11), function(history) {
+            history.createdAt = $moment(history.created_at).format('LLL');
+            return history;
+        });
+
+        this.doRecord = function(name, point) {
+            var histories = History.getList(target);
+            var history = {name: name, point: point, created_at: Date.now()};
+            histories.unshift(history);
+            History.setList(target, histories);
+            history.createdAt = $moment(history.created_at).format('LLL');
+            this.histories.unshift(history);
+        };
+
+        this.deleteRecord = _.bind(function(history) {
+            var histories = History.getList(target);
+            for(var i = 0; i < histories.length; ++i) {
+                var h = histories[i];
+                if (h.name === history.name && h.point == history.point && h.created_at == history.created_at) {
+                    histories.splice(i, 1);
+                    this.histories.splice(i, 1);
+                    History.setList(target, histories);
+
+                    this.counts -= 1;
+                    this.points -= h.point;
+                    var item = _.find(this.items, function(item){ return item.name === h.name; });
+                    item.counts -= 1;
+                    item.points -= h.point;
+                    break;
+                }
+            }
+        }, this);
+
+
+    }, this);
+
+    Resource.list().then(_.bind(function(json) {
+        init('histories', json);
     }, this), function(error) {
         console.log(error);
     });
-
-    this.histories = _.map(_.first(History.getList('histories'), 11), function(history) {
-        history.createdAt = $moment(history.created_at).format('LLL');
-        return history;
-    });
-
-    this.doRecord = function(name, point) {
-        var histories = History.getList('histories');
-        var history = {name: name, point: point, created_at: Date.now()};
-        histories.unshift(history);
-        History.setList("histories", histories);
-        history.createdAt = $moment(history.created_at).format('LLL');
-        this.histories.unshift(history);
-    };
-
-    this.deleteRecord = _.bind(function(history) {
-        var histories = History.getList('histories');
-        for(var i = 0; i < histories.length; ++i) {
-            var h = histories[i];
-            if (h.name === history.name && h.point == history.point && h.created_at == history.created_at) {
-                histories.splice(i, 1);
-                this.histories.splice(i, 1);
-                History.setList('histories', histories);
-
-                this.counts -= 1;
-                this.points -= h.point;
-                var item = _.find(this.items, function(item){ return item.name === h.name; });
-                item.counts -= 1;
-                item.points -= h.point;
-                break;
-            }
-        }
-    }, this);
 
     this.doUpdate = _.bind(function(item, point) {
         item.counts += 1;
