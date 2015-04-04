@@ -120,10 +120,11 @@ angular.module('myApp', [
                 'zeta12': 'histories13'
             };
             _.each(tabs, function(target, tab) {
+                var tabId = tab;
                 if (/zeta.*/.exec(tab)) {
-                    tab = 'zeta';
+                    tabId = 'zeta';
                 }
-                var dom = document.getElementById('tab-'+tab);
+                var dom = document.getElementById('tab-'+tabId);
 
                 if (tab === id) {
                     dom.setAttribute('class', 'active');
