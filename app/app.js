@@ -33,28 +33,36 @@ angular.module('myApp', [
         },
         setList: function(target, histories) {
             localStorage.setItem(target, JSON.stringify(histories));
+        },
+        initList: function(target, json, callback) {
+            var histories =  this.getList(target);
+            var items = _.map(json.items, function(item) {
+                var listForName = function(list, name) {
+                    return _.filter(list, function(h) {return h.name === name; });
+                }(histories, item.name);
+
+                item.counts = _.size(listForName);
+                item.points = _.reduce(listForName, function(memo, h) { return memo + h.point; }, 0);
+                item.point = json.type[item.type].point;
+                item.bonus = json.type[Math.min(parseInt(item.type) + 1, 6)].point;
+                return item;
+            });
+            var counts = _.reduce(items, function(memo, item) {return memo + item.counts}, 0);
+            var points = _.reduce(items, function(memo, item) {return memo + item.points}, 0);
+
+            callback(items, json.type, counts, points);
         }
     }
 }]).controller("Controller", ['Resource', 'History', '$moment', function(Resource, History, $moment) {
     $moment.locale(["ja"]);
 
     Resource.list().then(_.bind(function(json) {
-        var histories =  History.getList("histories");
-        this.items = _.map(json.items, function(item) {
-            var listForName = function(list, name) {
-                return _.filter(list, function(h) {return h.name === name; });
-            }(histories, item.name);
-
-            item.counts = _.size(listForName);
-            item.points = _.reduce(listForName, function(memo, h) { return memo + h.point; }, 0);
-            item.point = json.type[item.type].point;
-            item.bonus = json.type[Math.min(parseInt(item.type) + 1, 6)].point;
-            return item;
-        });
-        this.type = json.type;
-
-        this.counts = _.reduce(this.items, function(memo, item) {return memo + item.counts}, 0);
-        this.points = _.reduce(this.items, function(memo, item) {return memo + item.points}, 0);
+        History.initList('histories', json, _.bind(function(items, type, counts, points) {
+            this.items = items;
+            this.type = type;
+            this.counts = counts;
+            this.points = points;
+        }, this));
     }, this), function(error) {
         console.log(error);
     });
