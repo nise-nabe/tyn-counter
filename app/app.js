@@ -99,4 +99,18 @@ angular.module('myApp', [
         this.points += point;
     }, this);
 
+    this.toggleRelicVersion = _.bind(function(id) {
+        var tabs = ['novus', 'zeta'];
+        tabs.forEach(function(tab) {
+            var dom = document.getElementById('tab-'+tab);
+
+            if (tab === id) {
+                dom.setAttribute('class', 'active')
+            } else {
+                dom.setAttribute('class', '')
+            }
+        });
+
+
+    }, this);
 }]);
