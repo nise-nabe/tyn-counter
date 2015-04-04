@@ -120,6 +120,9 @@ angular.module('myApp', [
                 'zeta12': 'histories13'
             };
             _.each(tabs, function(target, tab) {
+                if (/zeta.*/.exec(tab)) {
+                    tab = 'zeta';
+                }
                 var dom = document.getElementById('tab-'+tab);
 
                 if (tab === id) {

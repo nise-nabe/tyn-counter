@@ -29,7 +29,26 @@
       </div>
       <ul class="nav nav-tabs nav-justified">
         <li class="active" id="tab-novus"><a href="#" ng-click="c.toggleRelicVersion('novus')">ノウス</a></li>
-        <li id="tab-zeta"><a href="#" ng-click="c.toggleRelicVersion('zeta')">ゼータ</a></li>
+        <li id="tab-zeta" role="presentation" class="dropdown">
+          <a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-expanded="false">
+            Zeta <span class="caret"></span>
+          </a>
+          <ul class="dropdown-menu" role="menu">
+            <li><a href="#" ng-click="c.toggleRelicVersion('zeta')">1</a></li>
+            <li><a href="#" ng-click="c.toggleRelicVersion('zeta2')">2</a></li>
+            <li><a href="#" ng-click="c.toggleRelicVersion('zeta3')">3</a></li>
+            <li><a href="#" ng-click="c.toggleRelicVersion('zeta4')">4</a></li>
+            <li><a href="#" ng-click="c.toggleRelicVersion('zeta5')">5</a></li>
+            <li><a href="#" ng-click="c.toggleRelicVersion('zeta6')">6</a></li>
+            <li><a href="#" ng-click="c.toggleRelicVersion('zeta7')">7</a></li>
+            <li><a href="#" ng-click="c.toggleRelicVersion('zeta8')">8</a></li>
+            <li><a href="#" ng-click="c.toggleRelicVersion('zeta9')">9</a></li>
+            <li><a href="#" ng-click="c.toggleRelicVersion('zeta10')">10</a></li>
+            <li><a href="#" ng-click="c.toggleRelicVersion('zeta11')">11</a></li>
+            <li><a href="#" ng-click="c.toggleRelicVersion('zeta12')">12</a></li>
+            </li>
+          </ul>
+        </li>
       </ul>
       <table class="table table-condensed">
         <thead>
@@ -95,6 +114,8 @@
     </div>
   </div>
 
+  <script src="https://code.jquery.com/jquery-2.1.3.min.js"></script>
+  <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
   <script src="bower_components/underscore/underscore-min.js"></script>
   <script src="bower_components/angular/angular.min.js"></script>
   <script src="bower_components/angular-resource/angular-resource.min.js"></script>
