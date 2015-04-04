@@ -102,6 +102,20 @@ angular.module('myApp', [
 
     Resource.list().then(_.bind(function(json) {
         init('histories', json);
+
+        this.toggleRelicVersion = _.bind(function(id) {
+            var tabs = {'novus': 'histories', 'zeta': 'histories2'};
+            _.each(tabs, function(target, tab) {
+                var dom = document.getElementById('tab-'+tab);
+
+                if (tab === id) {
+                    dom.setAttribute('class', 'active');
+                    init(target, json);
+                } else {
+                    dom.setAttribute('class', '')
+                }
+            });
+        }, this);
     }, this), function(error) {
         console.log(error);
     });
@@ -113,18 +127,4 @@ angular.module('myApp', [
         this.points += point;
     }, this);
 
-    this.toggleRelicVersion = _.bind(function(id) {
-        var tabs = ['novus', 'zeta'];
-        tabs.forEach(function(tab) {
-            var dom = document.getElementById('tab-'+tab);
-
-            if (tab === id) {
-                dom.setAttribute('class', 'active')
-            } else {
-                dom.setAttribute('class', '')
-            }
-        });
-
-
-    }, this);
 }]);
