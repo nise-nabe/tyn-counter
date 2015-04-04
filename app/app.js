@@ -104,7 +104,21 @@ angular.module('myApp', [
         init('histories', json);
 
         this.toggleRelicVersion = _.bind(function(id) {
-            var tabs = {'novus': 'histories', 'zeta': 'histories2'};
+            var tabs = {
+                'novus': 'histories',
+                'zeta': 'histories2',
+                'zeta2': 'histories3',
+                'zeta3': 'histories4',
+                'zeta4': 'histories5',
+                'zeta5': 'histories6',
+                'zeta6': 'histories7',
+                'zeta7': 'histories8',
+                'zeta8': 'histories9',
+                'zeta9': 'histories10',
+                'zeta10': 'histories11',
+                'zeta11': 'histories12',
+                'zeta12': 'histories13'
+            };
             _.each(tabs, function(target, tab) {
                 var dom = document.getElementById('tab-'+tab);
 
